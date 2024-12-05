@@ -1,7 +1,4 @@
 <?php
-// Włącz raportowanie błędów
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 // Collect data from form
 $employee_name = $_POST['employee_name'];
 $employee_job_title = $_POST['employee_job_title'];
