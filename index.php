@@ -1,8 +1,6 @@
 <?php
 //Import database credentials
 include './db_login/db_login.php';
-//Import custom functions
-include './functions.php';
 ?>
 <!DOCTYPE html>
 <html lang="pl">
