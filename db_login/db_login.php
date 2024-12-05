@@ -1,8 +1,8 @@
 <?php            
 //LOGOWANIE DO BAZY DANYCH
-$username = "widoczni_admin";
-$password = "password";
-$server = 'mysql:host=localhost;dbname=widoczni;charset=utf8';
+$username = "USERNAME";
+$password = "PASSWORD";
+$server = 'mysql:host=localhost;dbname=DATABASE;charset=utf8';
 
 try {
     $pdo = new PDO($server, $username, $password);
