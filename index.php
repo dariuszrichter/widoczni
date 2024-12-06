@@ -1,6 +1,8 @@
 <?php
 //Import database credentials
 include './db_login/db_login.php';
+//Import custom functions
+include './functions.php';
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -10,6 +12,7 @@ include './db_login/db_login.php';
     <title>WIDOCZNI</title>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- DataTables -->
@@ -23,7 +26,7 @@ include './db_login/db_login.php';
 </head>
 <body>
     <div class="navbar-own">
-        <img src = "./img/widoczni-logo.svg" alt="My Happy SVG" style="max-height: 50px;"/>
+        <a href="/"><img src = "./img/widoczni-logo.svg" alt="My Happy SVG" style="max-height: 50px;"/></a>
         <div class="menu-buttons">
             <button class="menu-btn" type="button" onclick="location.href='./'">Klienci</button>
             <button class="menu-btn" type="button" onclick="location.href='/pakiety'">Pakiety</button>
@@ -61,8 +64,16 @@ include './db_login/db_login.php';
                 case 'pakiety':
                     include 'packages.php';
                     break;
-                default:
+                case 'home':
                     include 'home.php';
+                    break;
+                case 'error':
+                    http_response_code(404);
+                    include 'error.php';
+                    break;
+                default:
+                    http_response_code(404);
+                    include 'error.php';
                     break;
             }
     ?>

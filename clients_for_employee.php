@@ -65,7 +65,7 @@ $stmt = null;
         </table>
         <!-- Datatables scripts -->
         <script>
-            var table = new DataTable('#datatables', {
+            let table = new DataTable('#datatables', {
                 language: {
                     url: '/lang/pl.json',
                 },

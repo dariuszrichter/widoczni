@@ -17,6 +17,75 @@ $employee_id = $_POST['employee'];
 
 $status = $_POST['status'];
 
+
+// Map of field names to user-friendly names
+$field_names = [
+    'company_name' => 'Nazwa firmy',
+    'company_email' => 'Adres e-mail firmy',
+    'company_phone' => 'Telefon kontaktowy firmy',
+    'company_address' => 'Adres siedziby firmy',
+    'package_id' => 'Pakiet',
+    'contract_date' => 'Data kontraktu',
+    'contact_name' => 'Imię i nazwisko osoby kontaktowej',
+    'contact_position' => 'Stanowisko osoby kontaktowej',
+    'contact_email' => 'Adres e-mail osoby kontektowej',
+    'contact_phone' => 'Telefon osoby kontaktowej',
+    'employee_id' => 'Opiekun',
+    'status' => 'Status kontraktu'
+];
+
+// Validation
+$errors = [];
+
+if (empty($company_name)) {
+    $errors[] = $field_names['company_name'];
+}
+if (empty($company_email) || !filter_var($company_email, FILTER_VALIDATE_EMAIL)) {
+    $errors[] = $field_names['company_email'];
+}
+if (empty($company_phone) || !preg_match("/^[0-9()+\s]+$/",$company_phone)) {
+    $errors[] = $field_names['company_phone'];
+}
+if (empty($company_address)) {
+    $errors[] = $field_names['company_address'];
+}
+if (empty($package_id)) {
+    $errors[] = $field_names['package_id'];
+}
+if (empty($contract_date)) {
+    $errors[] = $field_names['contract_date'];
+}
+if (empty($contact_name) || !preg_match("/^[a-zA-Z-' ]*$/",$contact_name)) {
+    $errors[] = $field_names['contact_name'];
+}
+if (empty($contact_position)) {
+    $errors[] = $field_names['contact_position'];
+}
+if (empty($contact_email) || !filter_var($contact_email, FILTER_VALIDATE_EMAIL)) {
+    $errors[] = $field_names['contact_email'];
+}
+if (empty($contact_phone) || !preg_match("/^[0-9()+\s]+$/",$contact_phone)) {
+    $errors[] = $field_names['contact_phone'];
+}
+if (empty($employee_id)) {
+    $errors[] = $field_names['employee_id'];
+}
+if (empty($status)) {
+    $errors[] = $field_names['status'];
+}
+if (!empty($errors)) {
+    echo "<div class='container my-5 py-3 alert-warning'>";
+    echo "Proszę poprawić następujące pola: <b>" . implode(', ', $errors) . "</b>";
+    echo "</div>
+    <div class='container my-1 mx-auto justify-content-center'>
+        <div class='row justify-content-center'>
+            <a href='/nowy-klient' class='btn btn-secondary'><i class='fa fa-arrow-left'></i> Powrót do formularza</a>
+        </div>
+    </div>
+    ";
+    exit;
+}
+
 $pdo->beginTransaction();
 
 try {
@@ -58,10 +127,17 @@ try {
     // Commit transaction
     $pdo->commit();
 
-    // If success close connection and redirect to home page 
+    // if success show message with back button
+    echo "<div class='container my-5 py-3 alert-success'>";
+    echo "Klient wprowadzony prawidłowo.";
+    echo "</div>
+    <div class='container my-1 mx-auto justify-content-center'>
+        <div class='row justify-content-center'>
+            <a href='/' class='btn btn-secondary'><i class='fa fa-arrow-left'></i> Powrót</a>
+        </div>
+    </div>
+    ";
     $pdo = null;
-    header("Location: /", true, 302);
-
 
 } catch (Exception $e) {
     // Rollback transaction if error

@@ -1,6 +1,6 @@
 <div class="container px-5 mt-4">
     <h2>Nowy pracownik</h2>
-    <a href="/" class="btn btn-secondary mb-3"><i class="fa fa-arrow-left"></i> Powrót</a>
+    <a href="/pracownicy" class="btn btn-secondary mb-3"><i class="fa fa-arrow-left"></i> Powrót</a>
 
     <!-- Formularz nowego klienta -->
     <form action="/wprowadzanie-nowego-pracownika" method="POST" enctype="multipart/form-data">
