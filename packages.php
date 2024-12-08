@@ -5,7 +5,7 @@
         <table id="datatables" class="display hover" style="width:100%">
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th>Lp.</th>
                     <th>Pakiet</th>
                     <th>Opis</th>
                     <th>Cena</th>
@@ -15,6 +15,7 @@
             </thead>
             <tbody>
                 <?php
+                $lp = 1;
                 $stmt = $pdo->prepare("
                     SELECT *
                     FROM service_packages
@@ -22,7 +23,7 @@
                 $stmt->execute();
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>
-                        <td>{$row['id']}</td>
+                        <td>{$lp}</td>
                         <td style='min-width: 150px;'>{$row['package_name']}</td>
                         <td>{$row['package_description']}</td>
                         <td style='min-width: 100px;'>{$row['price']} PLN</td>
@@ -32,6 +33,7 @@
                             <a href='#' class='btn btn-danger disabled btn-sm mx-1' title='Usuń'><i class='fa fa-trash' aria-hidden='true'></i>
                         </td>
                     </tr>";
+                    $lp++;
                 }
                 ?>
             </tbody>

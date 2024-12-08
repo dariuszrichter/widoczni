@@ -5,7 +5,6 @@
         <table id="datatables" class="display hover" style="width:100%">
             <thead>
                 <tr>
-                    <th>id</th>
                     <th>Imię i nazwisko</th>
                     <th>Adres e-mail</th>
                     <th>Numer telefonu</th>
@@ -42,7 +41,6 @@
                         $clients_count = $client_count_map[$row['id']];
                     }
                     echo "<tr>
-                        <td>{$row['id']}</td>
                         <td>{$row['employee_name']}</td>
                         <td>{$row['email']}</td>
                         <td>{$row['phone']}</td>
