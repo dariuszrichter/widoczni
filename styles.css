@@ -29,12 +29,14 @@ body {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
 }
 
 .menu-btn:hover {
     background-color: #555;
     color: #fff;
     border-radius: 5px;
+    text-decoration: none;
 }
 
 .menu-btn:focus {
