@@ -2,9 +2,19 @@
 
 class HandlePageRoutes {
 
+    private function checkSessionLogin (){
+        if (isset($_SESSION['login'])) {
+            $route = isset($_GET['route']) ? $_GET['route'] : 'clients';
+            return $route;
+        }
+        if (!isset($_SESSION['login'])) {
+            $route = isset($_GET['route']) ? $_GET['route'] : 'login';
+            return $route;
+        }
+    }
+
     public function routes(){
-        $route = isset($_GET['route']) ? $_GET['route'] : 'login';
-        switch ($route) {
+        switch ($this->checkSessionLogin()) {
             case 'przypisani-klienci':
                 include 'clients_for_employee.php';
                 break;
@@ -39,15 +49,18 @@ class HandlePageRoutes {
                 include 'login.php';
                 break;
             case 'autoryzacja':
-                include '../auth.php';
+                include 'auth.php';
+                break;
+            case 'wyloguj':
+                include 'logout.php';
                 break;
             case 'error':
                 http_response_code(404);
-                include 'error.php';
+                include '../error/error.php';
                 break;
             default:
                 http_response_code(404);
-                include 'error.php';
+                include '../error/error.php';
                 break;
         }
     }

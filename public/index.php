@@ -1,5 +1,6 @@
 
 <?php 
+session_start();
 require("../config/config.php");
 require("../app/MySQLConnection.php");
 require('../app/GetDataFromMySQL.php');
@@ -34,7 +35,7 @@ require('../app/HandleNavbar.php');
         <a href="/"><img src="public/img/widoczni-logo.svg" style="max-height: 50px;"/></a>
         <?php 
             $navbar = new HandleNavbar;
-            $navbar->buttons(isset($_SESSION['username']));
+            $navbar->buttons(isset($_SESSION['login']));
         ?>
     </div>
         <?php

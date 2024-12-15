@@ -1,5 +1,5 @@
 <div class="container-fluid px-5 mt-4">
-        <h2>Lista klientów</h2>
+        <h2>Lista klientów <?php echo session_reset(); ?></h2>
         <a href="/nowy-klient" class="btn btn-success mb-3">Nowy klient</a>
         <table id="datatables" class="display hover" style="width:100%">
             <thead>

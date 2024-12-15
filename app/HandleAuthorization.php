@@ -2,7 +2,6 @@
 class HandleAuthorization extends MySQLConnection {
     public function checkValidLogin($login, $password) {
         $this->connection();
-
         try {
             $query = "SELECT * FROM users WHERE login = :login";
 
@@ -13,6 +12,8 @@ class HandleAuthorization extends MySQLConnection {
             if ($stmt->rowCount() == 1) {
                 foreach ($stmt as $row) {
                     if ($login == $row['login'] && password_verify($password, $row['password']) == TRUE) {
+                        $_SESSION['login'] = $login;
+                        session_regenerate_id();
                         return true;
                     } else {
                         return false;
@@ -54,5 +55,10 @@ class HandleAuthorization extends MySQLConnection {
         
 
         $this->disconnect();
+    }
+
+    public function logOut(){
+        session_destroy();
+        header("location: /");
     }
 }
