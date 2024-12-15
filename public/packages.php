@@ -16,12 +16,13 @@
             <tbody>
                 <?php
                 $lp = 1;
-                $stmt = $pdo->prepare("
-                    SELECT *
-                    FROM service_packages
-                ");
-                $stmt->execute();
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $connection = new GetDataFromMySQL(WID_CONFIG_DB::HOST,WID_CONFIG_DB::DBNAME, WID_CONFIG_DB::USERNAME, WID_CONFIG_DB::PASSWORD);
+                $query = "
+                        SELECT *
+                        FROM service_packages
+                        ";
+                $data = $connection->getIndividualData($query);
+                foreach ($data as $row) {
                     echo "<tr>
                         <td>{$lp}</td>
                         <td style='min-width: 150px;'>{$row['package_name']}</td>

@@ -15,26 +15,24 @@
             </thead>
             <tbody>
                 <?php
-                // All employees
-                $stmt = $pdo->prepare("
-                    SELECT *
-                    FROM employees
-                ");
-                //Count clients per empleyee
-                $count = $pdo->prepare("
-                    SELECT employee_id, COUNT(client_id) AS client_count
-                    FROM employee_client
-                    GROUP BY employee_id;
-                ");
-
-                $stmt->execute();
-                $count->execute();
+                $connection = new GetDataFromMySQL(WID_CONFIG_DB::HOST,WID_CONFIG_DB::DBNAME, WID_CONFIG_DB::USERNAME, WID_CONFIG_DB::PASSWORD);
+                $query = "
+                        SELECT *
+                        FROM employees
+                        ";
+                $data = $connection->getIndividualData($query);
+                $query2 = "
+                        SELECT employee_id, COUNT(client_id) AS client_count
+                        FROM employee_client
+                        GROUP BY employee_id;
+                        ";
+                $data2 = $connection->getIndividualData($query2);
 
                 $client_count_map = [];
-                while ($clients = $count->fetch(PDO::FETCH_ASSOC)) {
+                foreach ($data2 as $clients) {
                     $client_count_map[$clients['employee_id']] = $clients['client_count'];
                 }
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                foreach ($data as $row) {
                     if (!isset($client_count_map[$row['id']])){
                         $clients_count = 0;
                     } else {
