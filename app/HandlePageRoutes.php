@@ -2,19 +2,35 @@
 
 class HandlePageRoutes {
 
-    private function checkSessionLogin (){
+    private function defaultPage (){
         if (isset($_SESSION['login'])) {
-            $route = isset($_GET['route']) ? $_GET['route'] : 'clients';
+            $route = isset($_GET['route']) ? WID_CONFIG_PAGES::pages[$_GET['route']] : WID_CONFIG_PAGES::pages['clients'];
             return $route;
         }
         if (!isset($_SESSION['login'])) {
-            $route = isset($_GET['route']) ? $_GET['route'] : 'login';
+            $route = isset($_GET['route']) ? WID_CONFIG_PAGES::pagesWithoutLogin[$_GET['route']] : WID_CONFIG_PAGES::pagesWithoutLogin['login'];
             return $route;
         }
     }
 
+    public function pageArray (){
+
+            if (isset($_GET['route']) && !isset(WID_CONFIG_PAGES::pagesWithoutLogin[$_GET['route']]) && !isset($_SESSION['login'])) {
+                http_response_code(404);
+                include WID_CONFIG_PAGES::pagesWithoutLogin['error'];
+                exit;
+            } 
+            if (isset($_GET['route']) && !isset(WID_CONFIG_PAGES::pages[$_GET['route']]) && isset($_SESSION['login'])) {
+                http_response_code(404);
+                include WID_CONFIG_PAGES::pages['error'];
+                exit;
+            } 
+
+            include $this->defaultPage();
+        }
+
     public function routes(){
-        switch ($this->checkSessionLogin()) {
+        switch ($this->defaultPage()) {
             case 'przypisani-klienci':
                 include 'clients_for_employee.php';
                 break;

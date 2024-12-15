@@ -40,7 +40,8 @@ require('../app/HandleNavbar.php');
     </div>
         <?php
             $routes = new HandlePageRoutes;
-            $routes->routes();
+            // $routes->routes();
+            $routes->pageArray();
         ?>
 </body>
 </html>
